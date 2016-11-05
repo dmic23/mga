@@ -23,7 +23,6 @@ class CourseViewSet(viewsets.ModelViewSet):
     authentication_classes = (JSONWebTokenAuthentication,)
 
     def list(self, request, id=None):
-        courses = []
         if self.request.user.is_admin:
             queryset = Course.objects.filter(course_active=True).exclude(course_recurring_end_date__lt=timezone.now())
         else:

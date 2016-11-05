@@ -12,6 +12,7 @@ def get_upload_file_name(instance, filename):
     return settings.UPLOAD_FILE_PATTERN % (str(time()).replace('.','_'), filename)
 
 class Location(models.Model):
+
     name = models.CharField(max_length=50, null=True, blank=True)
     addr1 = models.CharField(max_length=50, null=True, blank=True)
     addr2 = models.CharField(max_length=50, null=True, blank=True)
@@ -28,6 +29,7 @@ class Location(models.Model):
         return smart_unicode(self.name)
 
 class StudentNote(models.Model):
+
     student = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='student_note')
     note = models.TextField()
     note_created = models.DateTimeField(auto_now_add=True)
@@ -213,6 +215,7 @@ class StudentMaterial(models.Model):
     material_updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='material_updated_user', null=True, blank=True)
 
 class StudentEmail(models.Model):
+
     MAIL_TYPE = ( 
         ('CRE', 'User Created'),
         ('ACT', 'User Active'),
@@ -230,3 +233,31 @@ class StudentEmail(models.Model):
     title = models.CharField(max_length=250, null=True, blank=True)
     body = models.TextField(null=True, blank=True)
     footer = models.TextField(null=True, blank=True)
+
+class StudentPlan(models.Model):
+
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='student_plan', blank=True)
+    plan_week = models.CharField(max_length=3, null=True, blank=True)
+    plan_section = models.CharField(max_length=3, null=True, blank=True)
+    plan_title = models.CharField(max_length=50, null=True, blank=True)
+    plan_description = models.TextField(null=True, blank=True)
+    plan_notes = models.TextField(null=True, blank=True)
+    plan_created = models.DateTimeField(auto_now_add=True)
+    plan_created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='plan_created_user', null=True, blank=True)
+    plan_updated = models.DateTimeField(auto_now_add=True)
+    plan_updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='plan_updated_user', null=True, blank=True)
+
+    def __unicode__(self):
+        return smart_unicode(self.plan_title)
+
+class StudentPlanFile(models.Model):
+
+    student_plan = models.ForeignKey(StudentPlan, related_name='student_plan_file', null=True, blank=True)
+    plan_file = models.FileField(upload_to=get_upload_file_name, null=True, blank=True)
+    plan_file_name = models.CharField(max_length=100, null=True, blank=True)
+    plan_file_created = models.DateTimeField(auto_now_add=True)
+    plan_file_created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='plan_file_added_user', null=True, blank=True)
+    plan_file_updated = models.DateTimeField(auto_now=True)
+    plan_file_updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='plan_file_updated_user', null=True, blank=True)
+
+

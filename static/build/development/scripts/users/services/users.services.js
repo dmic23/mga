@@ -33,6 +33,8 @@
             createStudentNote: createStudentNote,
             updateStudentNote: updateStudentNote,
             deleteStudentNote: deleteStudentNote,
+            deleteStudentPlan: deleteStudentPlan,
+            deleteStudentPlanFile: deleteStudentPlanFile,
 
         };
 
@@ -256,6 +258,24 @@
         function deleteStudentNote(noteId){
             var acct = $cookies.getObject('authAcct');
             return $http.delete('api/v1/student-notes/'+noteId+'/', {
+                   'Authorization': 'JWT ' + acct.token
+                })
+                .then(generalCallbackSuccess)
+                .catch(generalCallbackError);
+        }
+
+        function deleteStudentPlan(plan){
+            var acct = $cookies.getObject('authAcct');
+            return $http.delete('api/v1/student-plan/'+plan.id+'/', {
+                   'Authorization': 'JWT ' + acct.token
+                })
+                .then(generalCallbackSuccess)
+                .catch(generalCallbackError);
+        }
+
+        function deleteStudentPlanFile(file){
+            var acct = $cookies.getObject('authAcct');
+            return $http.delete('api/v1/student-plan-file/'+file.id+'/', {
                    'Authorization': 'JWT ' + acct.token
                 })
                 .then(generalCallbackSuccess)

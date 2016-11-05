@@ -124,6 +124,15 @@
                     requireLogin: true
                 },
             })
+            .state('app.student-plan', {
+                url: '/student-plan/:userId',
+                controller: 'StudentPlanController',
+                controllerAs: 'vm',     
+                templateUrl: static_path('views/users/student-plan.html'),
+                data: {
+                    requireLogin: true
+                },
+            })
             .state('app.forum', {
                 url: '/forum',
                 controller: 'ForumController',

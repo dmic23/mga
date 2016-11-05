@@ -13,8 +13,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework_jwt.settings import api_settings
-from users.models import User, Location, StudentNote, StudentGoal, StudentPracticeLog, StudentObjective, StudentWishList, StudentMaterial
-from users.serializers import UserSerializer, LocationSerializer, StudentNoteSerializer, StudentGoalSerializer, StudentPracticeLogSerializer, StudentObjectiveSerializer, StudentWishListSerializer, StudentMaterialSerializer
+from users.models import User, Location, StudentNote, StudentGoal, StudentPracticeLog, StudentObjective, StudentWishList, StudentMaterial, StudentPlan, StudentPlanFile
+from users.serializers import UserSerializer, LocationSerializer, StudentNoteSerializer, StudentGoalSerializer, StudentPracticeLogSerializer, StudentObjectiveSerializer, StudentWishListSerializer, StudentMaterialSerializer, StudentPlanSerializer, StudentPlanFileSerializer
 from users.tasks import send_basic_email
 
 
@@ -208,6 +208,71 @@ class StudentMaterialsViewSet(viewsets.ModelViewSet):
             file_dict['material_updated_by'] = self.request.user
 
             serializer.save(group=group, **file_dict)
+
+class StudentPlanViewSet(viewsets.ModelViewSet):
+    lookup_field = 'id'
+    queryset = StudentPlan.objects.all()
+    serializer_class = StudentPlanSerializer
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (JSONWebTokenAuthentication,)
+
+    def list(self, request, id=None):
+        if self.request.user.is_admin:
+            queryset = StudentPlan.objects.all()
+        else:
+            queryset = StudentPlan.objects.filter(student=self.request.user)
+        serializer = StudentPlanSerializer(queryset, many=True)
+        return Response(serializer.data)   
+
+    def perform_create(self, serializer):
+        if serializer.is_valid():
+            file_dict = {}
+            file_arr = []
+            students_arr = []
+
+            for k, v in self.request.data.iteritems():
+                if 'files' in k:
+                    file_arr.append(v)
+
+                if 'students' in k:
+                    students_arr.append(v)
+
+                if 'files' not in k and 'students' not in k: 
+                    item = self.request.data.get(k)
+                    file_dict[k] = item
+
+            file_dict['plan_created_by'] = self.request.user
+
+            serializer.save(students=students_arr, files=file_arr, **file_dict)
+
+    def perform_update(self, serializer):
+        if serializer.is_valid():
+            file_dict = {}
+            file_arr = []
+            students_arr = []
+            print "SRD === %s" %self.request.data
+
+            for k, v in self.request.data.iteritems():
+                if 'files' in k:
+                    file_arr.append(v)
+
+                if 'students' in k:
+                    students_arr.append(v)
+
+                if 'files' not in k and 'students' not in k: 
+                    item = self.request.data.get(k)
+                    file_dict[k] = item
+
+            file_dict['plan_updated_by'] = self.request.user
+
+            serializer.save(students=students_arr, files=file_arr, **file_dict) 
+
+class StudentPlanFileViewSet(viewsets.ModelViewSet):
+    lookup_field = 'id'
+    queryset = StudentPlanFile.objects.all()
+    serializer_class = StudentPlanFileSerializer
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (JSONWebTokenAuthentication,)    
 
 
 class LoginView(views.APIView):

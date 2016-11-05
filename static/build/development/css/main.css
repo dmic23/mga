@@ -38,6 +38,10 @@ ul {
 	margin-bottom: 10px;
 }
 
+.margin-left-10 {
+	margin-left: 10px;
+}
+
 .margin-tb-10 {
 	margin: 10px 0;
 }
@@ -164,7 +168,7 @@ ul {
 }
 
 .main-bg-color {
-	background-color: #DAE3E5;
+	background-color: #DAE3E5 !important;
 	background-image: linear-gradient(to bottom, transparent 0%, rgba(112, 112, 112, 0) 60%, rgba(186, 186, 186, 0.15) 100%);
 	min-height: 100%;
 }

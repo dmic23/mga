@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from users.models import User, Location, StudentNote, StudentGoal, StudentPracticeLog, StudentObjective, StudentWishList, StudentMaterial, StudentEmail
+from users.models import User, Location, StudentNote, StudentGoal, StudentPracticeLog, StudentObjective, StudentWishList, StudentMaterial, StudentEmail, StudentPlan, StudentPlanFile
 
 class UserCreationForm(forms.ModelForm):
 
@@ -167,5 +167,22 @@ class StudentMaterialAdmin(admin.ModelAdmin):
 
 admin.site.register(StudentMaterial, StudentMaterialAdmin)
 
+class StudentPlanFileInLine(admin.StackedInline):
+    model = StudentPlanFile
+    extra = 0
 
+class StudentPlanAdmin(admin.ModelAdmin):
+
+    inlines = [
+        StudentPlanFileInLine,
+    ]
+
+    class Meta:
+        model = StudentPlan
+
+    list_display = ('plan_week', 'plan_section', 'plan_title', 'plan_created',)
+    list_filter = ('plan_week', 'plan_section', 'plan_title', 'plan_created',)
+    ordering = ('plan_week', 'plan_section',)
+
+admin.site.register(StudentPlan, StudentPlanAdmin)
 

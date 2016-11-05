@@ -1,0 +1,57 @@
+
+<div class="card animated fadeIn">
+
+    <div class="header row">
+    	<div class="col-md-6">
+    		<p class="category center-block">Here is a weekly plan to help you reach your goals.</p>
+    	</div>
+        <div class="col-md-6">
+        	<button class="btn btn-sm btn-info margin-10 pull-right" ng-click="openPlan({})" ng-if="authAcct.is_staff"><i class="ti-plus"/> Add Plan</button>
+<!-- 			<form class="">
+				<div class="form-group padding-10">
+					<div class="input-group">
+						<div class="input-group-addon border"><i class="fa fa-search"></i></div>
+						<input type="text" class="form-control border-input" placeholder="Search" ng-model="searchItem">
+					</div>      
+				</div>
+			</form>   -->	
+        </div>
+    </div>
+
+    <div class="content">
+
+		<uib-accordion>
+			<div uib-accordion-group class="panel-default text-center" heading="Week {{week}}" ng-repeat="(week, weekPlans) in sortedPlans">
+				<div class="row table-responsive table-full-width">
+
+					<table class="table table-hover">
+			            <tbody>
+							<tr class="img-select" ng-repeat="wp in weekPlans | orderBy: 'section' ">
+								<td class="width-10" ng-click="openPlan(wp, false);">{{wp.plan_section}}</td>
+								<td class="width-30" ng-click="openPlan(wp, false);">
+									{{wp.plan_title | limitTo: 50}}<span ng-if="wp.plan_title.length > 50">...</span>
+								</td>
+								<td class="width-40" ng-click="openPlan(wp, false);">
+									{{wp.plan_description| limitTo: 50}}<span ng-if="wp.plan_description.length > 50">...</span>
+								</td>
+								<td class="" ng-click="openPlan(wp, false);">
+									<div ng-if="wp.student_plan_file.length > 0">
+										<p class="text-success text-center">{{wp.student_plan_file.length}}</p>
+										<small class="center-block">Files</small>
+									</div>
+								</td>
+								<td class="" ng-if="authAcct.is_staff">
+									<button type="button" class="btn btn-warning btn-link" ng-click="openPlan(wp, true);"><i class="ti-pencil"/></button>
+									<button type="button" class="btn btn-danger btn-link" ng-click="removePlan(wp);"><i class="ti-trash"/></button>
+								</td>
+							</tr>
+			            </tbody>
+			        </table>
+					
+				</div>
+			</div>
+		</uib-accordion>
+		
+    </div>
+
+</div>
