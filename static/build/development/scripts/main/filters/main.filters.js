@@ -3,7 +3,11 @@
 
     angular
         .module('main.filters')
-        .filter('numberpad', function(){
+        .filter('numberpad', numberpad);
+
+        numberpad.$inject = [];
+
+        function numberpad() {
             return function(input, places) {
                 var out = "";
                 if (places){
@@ -17,6 +21,6 @@
                 }
                 return out;
             };
-        }); 
+        }; 
 
 })();

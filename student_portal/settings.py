@@ -24,13 +24,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'gulk#dyfv3c#qpyz)086#jf#o4#@sltgu2-52u!=op!kdy)!yd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-# ADMINS = (
-#     ('Michael Gumley', '@gmail.com'),
-# )
+ADMINS = (
+    ('Michael Gumley', 'melguitaracademytest@gmail.com'),
+)
 
 # Application definition
 
@@ -118,9 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-au'
 
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Australia/Melbourne'
 
 USE_I18N = True
 

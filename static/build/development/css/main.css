@@ -6,6 +6,10 @@ ul {
     list-style-type: none;
 }
 
+.margin-0 {
+	margin: 0;
+}
+
 .margin-5 {
 	margin: 5px;
 }
@@ -42,6 +46,10 @@ ul {
 	margin-left: 10px;
 }
 
+.margin-right-10 {
+	margin-right: 10px;
+}
+
 .margin-tb-10 {
 	margin: 10px 0;
 }
@@ -64,6 +72,10 @@ ul {
 
 .padding-10 {
 	padding: 10px;
+}
+
+.padding-bottom-10 {
+	padding-bottom: 10px;
 }
 
 .padding-top-20 {
@@ -127,6 +139,11 @@ ul {
 	width: 100px;
 	height: 100px; 
 }
+
+.inline-flex {
+	display: inline-flex;
+}
+
 .content-container {
 	padding-top: 50px;
 }
@@ -141,6 +158,10 @@ ul {
 
 .bg-yellow {
 	background-color: rgba(220,220,24,0.8);
+}
+
+.bg-orange {
+	background-color: rgba(255,140,0,0.8);
 }
 
 .bg-green {
@@ -185,6 +206,10 @@ ul {
 	font-size: 1.8em;
 }
 
+.text-md {
+	font-size: 1.2em;
+}
+
 .border {
 	border: 1px solid #CCC5B9;
 }
@@ -195,6 +220,14 @@ ul {
 
 .border-top {
 	border-top: 1px solid #CCC5B9;
+}
+
+.border-left {
+	border-left: 1px solid #CCC5B9;
+}
+
+.border-right {
+	border-right: 1px solid #CCC5B9;
 }
 
 .border-r-10 {

@@ -33,7 +33,11 @@
             createStudentNote: createStudentNote,
             updateStudentNote: updateStudentNote,
             deleteStudentNote: deleteStudentNote,
+            getAllPlans: getAllPlans,
+            createStudentPlan: createStudentPlan,
+            updateStudentPlan: updateStudentPlan,
             deleteStudentPlan: deleteStudentPlan,
+            deleteStudentPlanSection: deleteStudentPlanSection,
             deleteStudentPlanFile: deleteStudentPlanFile,
 
         };
@@ -264,9 +268,45 @@
                 .catch(generalCallbackError);
         }
 
+        function getAllPlans(){
+            var acct = $cookies.getObject('authAcct');
+            return $http.get('api/v1/student-plan/', {
+                   'Authorization': 'JWT ' + acct.token
+                })
+                .then(generalCallbackSuccess)
+                .catch(generalCallbackError);
+        }
+
+        function createStudentPlan(plan){
+            var acct = $cookies.getObject('authAcct');
+            return $http.post('api/v1/student-plan/', plan, {
+                   'Authorization': 'JWT ' + acct.token
+                })
+                .then(generalCallbackSuccess)
+                .catch(generalCallbackError);
+        }
+
+        function updateStudentPlan(plan){
+            var acct = $cookies.getObject('authAcct');
+            return $http.put('api/v1/student-plan/'+plan.id+'/', plan, {
+                   'Authorization': 'JWT ' + acct.token
+                })
+                .then(generalCallbackSuccess)
+                .catch(generalCallbackError);
+        }
+
         function deleteStudentPlan(plan){
             var acct = $cookies.getObject('authAcct');
             return $http.delete('api/v1/student-plan/'+plan.id+'/', {
+                   'Authorization': 'JWT ' + acct.token
+                })
+                .then(generalCallbackSuccess)
+                .catch(generalCallbackError);
+        }
+
+        function deleteStudentPlanSection(section){
+            var acct = $cookies.getObject('authAcct');
+            return $http.delete('api/v1/student-plan-section/'+section.id+'/', {
                    'Authorization': 'JWT ' + acct.token
                 })
                 .then(generalCallbackSuccess)

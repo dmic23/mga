@@ -1,5 +1,5 @@
 (function () {
-    'use static';
+    'use strict';
 
     angular
         .module('main.controllers')
@@ -58,7 +58,6 @@
         }
 
         function getUserSuccess(response){
-            console.log(response);
             vm.respUser = response;
             var userCopy = angular.copy(vm.respUser)
             vm.user = _.omit(userCopy, 'student_goal', 'student_log', 'student_material', 'student_wishlist', 'student_objective');

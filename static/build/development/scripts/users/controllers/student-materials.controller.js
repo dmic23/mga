@@ -1,5 +1,5 @@
 (function () {
-    'use static';
+    'use strict';
 
     angular
         .module('main.controllers')

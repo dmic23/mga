@@ -76,7 +76,7 @@
                                     <small class="center-block margin-tb-5">
                                         <span ng-if="vm.user.user_pic.$ngfName">{{vm.user.user_pic.$ngfName}}</span>
                                         <span ng-if="!vm.user.user_pic.$ngfName && vm.user.user_pic.name">{{vm.user.user_pic.name}}</span>
-                                        <span ng-if="!vm.user.user_pic.$ngfName && !vm.user.user_pic.name"><a href="{{vm.path}}{{vm.user.user_pic}}" target="_blank">{{vm.user.user_pic}}</a></span>
+                                        <span ng-if="!vm.user.user_pic.$ngfName && !vm.user.user_pic.name">{{vm.user.user_pic}}</span>
                                     </small>
                             </div>
 
@@ -135,13 +135,14 @@
                                 <label>Play Level</label>
                     			<select class="form-control border-input" name="play_level" ng-model="vm.user.play_level">
 									<option value="1">White</option>
-									<option value="2">Red</option>
-									<option value="3">Yellow</option>
+									<option value="2">Yellow</option>
+                                    <option value="3">Orange</option>
 									<option value="4">Green</option>
 									<option value="5">Blue</option>
 									<option value="6">Purple</option>
-									<option value="7">Brown</option>
-									<option value="8">Black</option>
+                                    <option value="7">Red</option>
+									<option value="8">Brown</option>
+									<option value="9">Black</option>
 								</select>
                             </div>
                         </div>

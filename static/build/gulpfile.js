@@ -16,9 +16,9 @@ var jsSources,
 	outputDir;
 
 jsSources = [
-	'development/scripts/hga.js',
-	'development/scripts/hga.config.js',
-	'development/scripts/hga.routes.js',
+	'development/scripts/mga.js',
+	'development/scripts/mga.config.js',
+	'development/scripts/mga.routes.js',
 	'development/scripts/**/**.module.js',
 	'development/scripts/**/*.js',
 	// 'development/js/**/*.js'

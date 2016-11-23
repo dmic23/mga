@@ -45,13 +45,14 @@
 
         $scope.playLevelColor = {
             '1': 'bg-white',
-            '2': 'bg-red',
-            '3': 'bg-yellow',
+            '2': 'bg-yellow',
+            '3': 'bg-orange',
             '4': 'bg-green',
             '5': 'bg-blue',
             '6': 'bg-purple',
-            '7': 'bg-brown',
-            '8': 'bg-black',
+            '7': 'bg-red',
+            '8': 'bg-brown',
+            '9': 'bg-black',
         }
 
         function loadSidebar(){
