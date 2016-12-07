@@ -10,6 +10,8 @@
     function LeaderBoardController($scope, $state, $stateParams, Main, Users){
         var vm = this;
 
+        vm.loading = true;
+
         activate();
 
         function activate(){
@@ -21,35 +23,47 @@
                     vm.dashId = vm.authAcct.id;
                     $state.transitionTo('app.leaderboard', {userId: vm.dashId}, { notify: false });
                 }
-                getUser(vm.dashId);
-                Users.getAll()
+                // getUser(vm.dashId);
+                Users.getUserLeaderBoard()
                     .then(getAllSuccess)
-                    .catch(getUserError);
+                    .catch(getAllError);
             } else {
                 $state.go('login');
             }
 
         }
 
-        function getUser(id){
-            Users.getUser(id)
-                .then(getUserSuccess)
-                .catch(getUserError);
+        function getUser(userId, users){
+            var curUser = _.findWhere(users, {'id': parseInt(userId)});
+            if(curUser){
+                vm.user = curUser;
+            }else{
+                $state.go('app.dashboard');
+            }
+            // Users.getUser(id)
+            //     .then(getUserSuccess)
+            //     .catch(getUserError);
         }
 
-        function getUserSuccess(response){
-            vm.user = response;
-        }
+        // function getUserSuccess(response){
+        //     vm.user = response;
+        // }
 
-        function getUserError(errMsg){
-            console.log(errMsg);
-            Main.logout();
-        }
+        // function getUserError(errMsg){
+        //     console.log(errMsg);
+        //     Main.logout();
+        // }
 
         function getAllSuccess(response){
             vm.allUsers = response;
+            getUser(vm.dashId, vm.allUsers);
             vm.leaderUsers = angular.copy(response);
             vm.setLeaderboard(vm.leaderUsers);
+            vm.loading = false;
+        }
+
+        function getAllError(errMsg){
+            console.log(errMsg);
         }
 
         vm.dateRange = moment("12-25-1995", "MM-DD-YYYY");

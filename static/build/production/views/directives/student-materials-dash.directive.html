@@ -34,7 +34,7 @@
 					</td>
 					<td class="width-20">
 						<button type="button" class="btn btn-warning btn-link" ng-click="open(material)"><i class="ti-pencil"/></button>
-						<button type="button" class="btn btn-danger btn-link" ng-click="deleteMaterial(material);"><i class="ti-trash"/></button>
+						<button type="button" class="btn btn-danger btn-link" ng-click="deleteMaterial(material);" ng-if="authAcct.is_staff || !material.student_group.length"><i class="ti-trash"/></button>
 					</td>
 				</tr>
 				<tr class="" ng-if="materials.length < 1">

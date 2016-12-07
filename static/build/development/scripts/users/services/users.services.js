@@ -13,6 +13,8 @@
         var Users = {
             getAll: getAll,
             getUser: getUser,
+            getAllSimpleUsers: getAllSimpleUsers,
+            getUserLeaderBoard: getUserLeaderBoard, 
             getLocations: getLocations,
             updateUserProfile: updateUserProfile,
             createStudentGoal: createStudentGoal,
@@ -66,6 +68,26 @@
             var acct = $cookies.getObject('authAcct');
             // $http.defaults.headers.common['Authorization'] = 'JWT ' + acct.token;
             return $http.get('api/v1/users/'+userId+'/', {
+                   'Authorization': 'JWT ' + acct.token
+                })
+                .then(generalCallbackSuccess)
+                .catch(generalCallbackError);
+        }
+
+        function getAllSimpleUsers(){
+            var acct = $cookies.getObject('authAcct');
+            // $http.defaults.headers.common['Authorization'] = 'JWT ' + acct.token;
+            return $http.get('api/v1/users-simple/', {
+                   'Authorization': 'JWT ' + acct.token
+                })
+                .then(generalCallbackSuccess)
+                .catch(generalCallbackError);
+        }
+
+        function getUserLeaderBoard(){
+            var acct = $cookies.getObject('authAcct');
+            // $http.defaults.headers.common['Authorization'] = 'JWT ' + acct.token;
+            return $http.get('api/v1/users-leaderboard/', {
                    'Authorization': 'JWT ' + acct.token
                 })
                 .then(generalCallbackSuccess)

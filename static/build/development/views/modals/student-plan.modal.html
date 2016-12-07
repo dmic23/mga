@@ -1,7 +1,7 @@
 
 <div class="modal-header">
 	<h3 class="modal-title">{{vm.modalTitle}} Student Plan</h3>
-	<button class="btn btn-danger btn-fill margin-10" type="button" ng-click="vm.removePlan(vm.plan); vm.closeModal();"><i class="ti-trash"/>Delete Plan</button>
+	<button class="btn btn-danger btn-fill margin-10" type="button" ng-click="vm.removePlan(vm.plan); vm.closeModal();" ng-if="selectedPlan.id"><i class="ti-trash"/> Delete Plan</button>
 </div>
 
 <div class="modal-body row">

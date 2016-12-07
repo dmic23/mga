@@ -37,6 +37,7 @@
     "angular-bootstrap-calendar": "~0.20.2",
     "interact": "~1.2.6",
     "angular-cookies": "~1.5.8",
-    "angular-ui-select": "~0.19.4"
+    "angular-ui-select": "~0.19.4",
+    "angular-audio": "~1.7.3"
   }
 }

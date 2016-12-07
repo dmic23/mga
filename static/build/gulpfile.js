@@ -42,7 +42,8 @@ bowerJs = [
 	'development/bower_components/interact/dist/interact.min.js',
 	'development/bower_components/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js',
 	'development/bower_components/angular-cookies/angular-cookies.min.js',
-	'development/bower_components/angular-ui-select/dist/select.min.js'
+	'development/bower_components/angular-ui-select/dist/select.min.js',
+	'development/bower_components/angular-audio/app/angular.audio.js'
 ];
 
 cssSources = [

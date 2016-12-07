@@ -41,7 +41,7 @@
                 <tr ng-if="fileProgress < 100">
                     <td colspan="3" class="text-danger">Upload in progress: {{fileProgress}}%</td>
                 </tr>
-				<tr ng-repeat="material in materials | orderBy: sortType:sortReverse | filter:searchItem" name="studentWishListForm" ng-form novalidate>
+				<tr ng-repeat="material in materials | orderBy: sortType:sortReverse | filter:searchItem" name="studentMaterialsForm" ng-form novalidate>
 					<td class="width-20">
 						<small>{{material.material_added | date:"MMM d, y"}}</small>
 					</td>
@@ -53,7 +53,7 @@
 					</td>
 					<td class="width-20">
 						<button type="button" class="btn btn-warning btn-link" ng-click="open(material)"><i class="ti-pencil"/></button>
-						<button type="button" class="btn btn-danger btn-link" ng-click="deleteMaterial(material);"><i class="ti-trash"/></button>
+						<button type="button" class="btn btn-danger btn-link" ng-click="deleteMaterial(material);" ng-if="authAcct.is_staff || !material.student_group.length"><i class="ti-trash"/></button>
 					</td>
 				</tr>
 				<tr class="" ng-if="materials.length < 1">

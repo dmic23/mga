@@ -8,6 +8,7 @@
             'ngSanitize',
             'ngCookies',
             'ngFileUpload',
+            'ngAudio',
             'angularMoment',
             'monospaced.elastic',
             'ui.router',

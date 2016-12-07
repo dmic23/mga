@@ -68,7 +68,7 @@
                     } else {
                         var tempWishList = updWishList;
                         var curDate = scope.getDate();
-                        tempWishList['objective_complete_date'] = curDate.now;
+                        tempWishList['wish_item_complete_date'] = curDate.now;
                     }
                     Users.updateStudentWishList(wishListId, tempWishList)
                         .then(function(response){

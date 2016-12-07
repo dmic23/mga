@@ -11,19 +11,19 @@
             <div class="content">
         		<div class="row padding-bottom-10">
                     <div class="col-md-12 margin-top-10">
-                        <div class="row">
-                            <div class="col-md-2 form-group">
+                        <div role="form" class="row">
+                            <div class="col-md-3 form-group">
                                 <label class="" for="setHours">Hours</label>
-                                <select class="form-control border-input" name="setHours" ng-model="setHours">
+                                <select class="form-control border-input" name="setHours" ng-model="setHours" ng-options="hour for hour in twelve">
                                     <!-- <option value=""></option> -->
-                                    <option ng-value="{{hour}}" ng-repeat="hour in twelve">{{hour}}</option>
+                                    <!-- <option ng-value="{{hour}}" ng-repeat="hour in twelve">{{hour}}</option> -->
                                 </select>                        
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3 form-group">
                                 <label class="" for="setMinutes">Minutes</label>
-                                <select class="form-control border-input col-md-2" name="setMinutes" ng-model="setMinutes">
+                                <select class="form-control border-input" name="setMinutes" ng-model="setMinutes" ng-options="minute for minute in sixty">
                                     <!-- <option value=""></option> -->
-                                    <option ng-value="{{minute}}" ng-repeat="minute in sixty">{{minute}}</option>
+                                    <!-- <option ng-value="{{minute}}" ng-repeat="minute in sixty">{{minute}}</option> -->
                                 </select>                        
                             </div>
                             <div class="col-md-2 margin-10 text-center">
@@ -59,11 +59,11 @@
         			<div class="col-md-12 text-center">
 
         		        <div id="beatBarContainer">
-        		            <div id="beatBar">&nbsp;</div>
+        		            <div id="beatBar" ng-class="{beatLeft:beatLeft, beatRight:beatRight, beatReset:beatReset}" ng-style="beatBarStyle">&nbsp;</div>
         		        </div>
         		        <br />
         		        <div class="">
-        		            <div id="beatIndicator" class="beep text-lg text-info">1</div>
+        		            <div class="text-lg text-info">{{beatCount}}</div>
         		        </div>
 
         			</div>
@@ -73,152 +73,36 @@
         					<div class="col-md-6">
         						<div class="form-group">
         							<label class="" for="bpm">Beats per Minute</label>
-        							<input type="text" name="bpm" class="form-control border-input" id="bpm" value="100" />
-        							<button type="button" name="bpmPlus" id="bpmPlus" class="btn btn-sm btn-info margin-5"><i class="ti-plus"/></button>
-        							<button type="button" name="bpmMinus" id="bpmMinus" class="btn btn-sm btn-default margin-5"><i class="ti-minus"/></button>
+        							<input type="text" name="bpm" class="form-control border-input" ng-model="bpm"/>
+        							<button type="button" name="bpmPlus" class="btn btn-sm btn-info margin-5" ng-click="bpmPlus(bpm);"><i class="ti-plus"/></button>
+        							<button type="button" name="bpmMinus" class="btn btn-sm btn-default margin-5" ng-click="bpmMinus(bpm);"><i class="ti-minus"/></button>
         						</div>
                             </div>
                             <div class="col-md-6">
         						<div class="form-group">
         							<label for="bpm">Beats per Bar</label>
-        							<input type="text" name="bpb" class="form-control border-input" id="bpb" value="4" />
-        							<button type="button" name="bpbPlus" id="bpbPlus" class="btn btn-sm btn-info margin-5"><i class="ti-plus"/></button>
-        							<button type="button" name="bpbMinus" id="bpbMinus" class="btn btn-sm btn-default margin-5"><i class="ti-minus"/></button>
+        							<input type="text" name="bpb" class="form-control border-input" ng-model="bpb"/>
+        							<button type="button" name="bpbPlus" class="btn btn-sm btn-info margin-5" ng-click="bpbPlus(bpb);"><i class="ti-plus"/></button>
+        							<button type="button" name="bpbMinus" class="btn btn-sm btn-default margin-5" ng-click="bpbMinus(bpb);"><i class="ti-minus"/></button>
         						</div>
         					</div>
 
         					<div class="col-md-12 text-center">
-        						<button type="button" class="btn btn-success margin-10" name="start" id="start" >Start</button>
-        						<button type="button" class="btn btn-danger margin-10" name="stop" id="stop">Stop</button>
-        					</div>	
+        						<button type="button" class="btn btn-success margin-10" name="start" ng-click="startMet();" ng-disabled="turnedOn">Start</button>
+        						<button type="button" class="btn btn-danger margin-10" name="stop" ng-click="stopMet();">Stop</button>
+        					</div>
+                            <div class="text-center">
+                                <small class="text-danger" ng-if="metAlert">{{metAlert}}</small>
+                            </div>	
         				</div>
         			</div>
-        		    <div id="audioHide">
-        		        <audio id="beepOne" ng-src="{{tick}}" preload="auto" controls="controls">Get a better standards compliant browser!</audio>
-        		        <audio id="beepTwo" ng-src="{{tock}}" preload="auto" controls="controls">Get a better standards compliant browser!</audio>
-        		    </div>	
+<!--         		    <div id="audioHide">
+        		        <audio id="tick" ng-src="{{tick}}" preload="auto" controls="controls">Need a better standards compliant browser!</audio>
+        		        <audio id="tock" ng-src="{{tock}}" preload="auto" controls="controls">Need a better standards compliant browser!</audio>
+        		    </div> -->	
         		</div>
             </div>
         </div>
     </div>
 
 </div>
-
-<script type="text/javascript">
-    var timeoutId = 0;
-    var timeoutClearId = 0;
-    var oneMin = 60000; // How many milliseconds
-    var bpm = 100;
-    var bpb = 4;
-    var beatCount = 1;
-    var left = 1;
-    var turnedOn = false;
-
-    $(document).ready(function() {
-        $("#bpmPlus").click(function() {
-            var currentValue = parseFloat($("#bpm").val());
-            $("#bpm").val(currentValue+1);
-            bpm = parseFloat($("#bpm").val());
-        })
-        $("#bpmMinus").click(function() {
-            var currentValue = parseFloat($("#bpm").val());
-            $("#bpm").val(currentValue-1);
-            bpm = parseFloat($("#bpm").val());
-        })
-        $("#bpm").change(function() {
-            bpm = parseFloat($("#bpm").val());
-        })
-
-        $("#bpbPlus").click(function() {
-            var currentValue = parseFloat($("#bpb").val());
-            $("#bpb").val(currentValue+1);
-            bpb = parseFloat($("#bpb").val());
-        })
-        $("#bpbMinus").click(function() {
-            var currentValue = parseFloat($("#bpb").val());
-            $("#bpb").val(currentValue-1);
-            bpb = parseFloat($("#bpb").val());
-        })
-        $("#bpb").change(function() {
-            bpb = parseFloat($("#bpb").val());
-        })
-
-        $("#start").click(function() {
-            if (turnedOn) {
-                return false;
-            }
-            beatCount = 1
-            beat();
-            turnedOn = true;
-        })
-        $("#stop").click(function() {
-            clearTimeout(timeoutId);
-            beatCount = 1
-            beatReset();
-            turnedOn = false;
-        })
-    });
-
-    function beat() {
-        
-        timeoutId = setTimeout("beat()", (oneMin / bpm));
-        $("#beatIndicator").show();
-        $("#beatIndicator").html(""); // Clear HTML
-        $("#beatIndicator").html(beatCount);
-
-        if (beatCount == 1) {
-            barBeep();
-        }
-        else {
-            beep();
-        }
-
-        //setTimeout('$("#beatIndicator").hide()', 100);
-
-        moveBeatBar();
-
-        beatCount++;
-        if (beatCount > bpb) {
-            beatCount = 1;
-        }
-    }
-
-    function beep() {
-        $("#beatIndicator").removeClass('barBeep');
-        $("#beatIndicator").addClass('beep');
-    	document.getElementById('beepOne').play();
-    }
-
-    function barBeep() {
-        $("#beatIndicator").removeClass('beep');
-        $("#beatIndicator").addClass('barBeep');
-    	document.getElementById('beepTwo').play();
-    }
-    function moveBeatBar()
-    {
-        var bps = 1/(bpm/60);
-        if (left) {
-            $("#beatBar").removeClass('beatReset');
-            $("#beatBar").removeClass('beatRight');
-            $("#beatBar").addClass('beatLeft');
-            $("#beatBar").css('-webkit-transition', 'all '+bps+'s ease-in-out');
-            $("#beatBar").css('-moz-transition', 'all '+bps+'ss ease-in-out');
-            $("#beatBar").css('-o-transition', 'all '+bps+'ss ease-in-out');
-            $("#beatBar").css('transition', 'all '+bps+'ss ease-in-out');
-            left = 0;
-        }
-        else {
-            $("#beatBar").removeClass('beatReset');
-            $("#beatBar").removeClass('beatLeft');
-            $("#beatBar").addClass('beatRight');
-            left++;
-        }
-    }
-    function beatReset()
-    {
-        $("#beatBar").removeClass('beatRight');
-        $("#beatBar").removeClass('beatLeft');
-        $("#beatBar").addClass('beatReset');
-    }	
-
-</script>

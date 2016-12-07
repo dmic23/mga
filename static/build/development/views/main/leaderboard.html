@@ -21,7 +21,7 @@
 					<form class="center-block">
 						<div class="form-group padding-10">
 							<div class="input-group">
-								<div class="input-group-addon border"><i class="fa fa-search"></i></div>
+								<div class="input-group-addon border"><i class="ti-search"></i></div>
 								<input type="text" class="form-control border-input" placeholder="Search" ng-model="searchItem">
 							</div>      
 						</div>
@@ -71,7 +71,7 @@
 		            </thead>
 
 		            <tbody>
-						<tr class="text-center" ng-repeat="leader in vm.leaderBoard | orderBy: '-practice_time_total' | orderBy: sortType:sortReverse | filter:searchItem" ng-hide="!leader.is_active && !vm.authAcct.is_staff" ng-class="{'bg-danger': !leader.is_active}">
+						<tr class="text-center" ng-repeat="leader in vm.leaderBoard | orderBy: '-practice_time_total' | orderBy: sortType:sortReverse | filter:searchItem" ng-hide="!leader.is_active && !vm.authAcct.is_staff" ng-class="{'bg-danger': !leader.is_active}" ng-if="!vm.loading">
 							<td class="width-5">{{$index + 1}}</td>
 							<td class="width-10">
 								<a ng-if="vm.authAcct.is_staff" ui-sref="app.dashboard({userId:leader.id})">{{leader.first_name}} {{leader.last_name}}</a>
@@ -89,8 +89,11 @@
 							<td class="width-10">{{leader.objectives_complete}}</td>
 							<td class="width-10">{{leader.wishes_complete}}</td>
 						</tr>
-						<tr ng-if="practiceLogs.length < 1">
+						<tr ng-if="!vm.loading && practiceLogs.length < 1">
 							<td colspan="9" class="text-warning text-center">No Leaders!</td>
+						</tr>
+						<tr ng-if="vm.loading">
+							<td class="text-center" colspan="9"><span class="text-lg"><i class="fa fa-refresh fa-spin text-danger"/> Loading Leaderboard...</span></td>
 						</tr>
 		            </tbody>
 

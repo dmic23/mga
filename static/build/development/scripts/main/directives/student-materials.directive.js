@@ -49,7 +49,7 @@
                             }
 
                             if(scope.authAcct.is_staff){
-                                Users.getAll()
+                                Users.getAllSimpleUsers()
                                     .then(function(response){
                                         vm.allUsers = response;
                                     });
